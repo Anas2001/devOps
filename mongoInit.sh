@@ -1,31 +1,19 @@
 #!/bin/bash
 
 if [ -z "${MONGO_PRIMARY-}" ]; then
-  MONGO_PRIMARY=mongodb1:27017
+   MONGO_PRIMARY=mongodb1:27017
 fi
 
 if [ -z "${MONGO_SECONDARY_ONE-}" ]; then
-  MONGO_SECONDARY_ONE=mongodb2:27018
+   MONGO_SECONDARY_ONE=mongodb2:27018
 fi
 
 if [ -z "${MONGO_SECONDARY_TWO-}" ]; then
-  MONGO_SECONDARY_TWO=mongodb3:27019
+   MONGO_SECONDARY_TWO=mongodb3:27019
 fi
 
 if [ -z "${MONGO_ADMIN_PASSWORD-}" ]; then
-  MONGO_ADMIN_PASSWORD=verylooooongpasswordz
-fi
-
-if [ -z "${MONGO_APP_PASSWORD-}" ]; then
-  MONGO_APP_PASSWORD=verylooooongpasswordz
-fi
-
-if [ -z "${MONGO_JENKINS_PASSWORD-}" ]; then
-  MONGO_JENKINS_PASSWORD=verylooooongpasswordz
-fi
-
-if [ -z "${MONGO_APP_DATABASE-}" ]; then
-  MONGO_APP_DATABASE=app-data
+   MONGO_ADMIN_PASSWORD=verylooooongpasswordz
 fi
 
 mongo <<EOF
@@ -35,6 +23,4 @@ var config = {
 };
 rs.initiate(config, { force: true });
 db.createUser({user: 'admin', pwd: $MONGO_ADMIN_PASSWORD, roles: [ { role: 'root', db: 'admin' } ]});
-db.createUser({user: 'app', pwd: $MONGO_APP_PASSWORD, roles: [ { role: ''readWrite', db: 'MONGO_APP_DATABASE' } ]});
-db.createUser({user: 'jenkins', pwd: $MONGO_JENKINS_PASSWORD, roles: [ { role: ''readWrite', db: 'MONGO_APP_DATABASE' } ]});
 EOF
