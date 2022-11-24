@@ -9,10 +9,10 @@ if [ -z "${MONGO_USER_PASSWORD-}" ]; then
 fi
 
 if [ -z "${MONGO_DATABASE-}" ]; then
-   MONGO_APP_DATABASE=app-data
+   MONGO_DATABASE=app-data
 fi
 
-if [ -z "${MONGO_DATABASE-}" ]; then
+if [ -z "${MONGO_DATABASE_ROLE-}" ]; then
    MONGO_DATABASE_ROLE=readWrite
 fi
 
@@ -20,6 +20,6 @@ if [ -z "${MONGO_PORT-}" ]; then
    MONGO_PORT=27017
 fi
 
-mongo --port $MONGO_PORT -u "amin" -p $MONGO_ADMIN_PASSWORD <<EOF
+mongo --port $MONGO_PORT -u "amin"  -p $MONGO_ADMIN_PASSWORD <<EOF
   db.createUser({user: $MONGO_USER_NAME, pwd: $MONGO_USER_PASSWORD, roles: [ { role: $MONGO_DATABASE_ROLE, db: $MONGO_DATABASE } ]});
 EOF
