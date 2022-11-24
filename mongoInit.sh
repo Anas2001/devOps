@@ -16,6 +16,18 @@ if [ -z "${MONGO_ADMIN_PASSWORD-}" ]; then
   MONGO_ADMIN_PASSWORD=verylooooongpasswordz
 fi
 
+if [ -z "${MONGO_APP_PASSWORD-}" ]; then
+  MONGO_APP_PASSWORD=verylooooongpasswordz
+fi
+
+if [ -z "${MONGO_JENKINS_PASSWORD-}" ]; then
+  MONGO_JENKINS_PASSWORD=verylooooongpasswordz
+fi
+
+if [ -z "${MONGO_APP_DATABASE-}" ]; then
+  MONGO_APP_DATABASE=app-data
+fi
+
 mongo <<EOF
 var config = {
     "_id": "rs0",
@@ -23,4 +35,6 @@ var config = {
 };
 rs.initiate(config, { force: true });
 db.createUser({user: 'admin', pwd: $MONGO_ADMIN_PASSWORD, roles: [ { role: 'root', db: 'admin' } ]});
+db.createUser({user: 'app', pwd: $MONGO_APP_PASSWORD, roles: [ { role: ''readWrite', db: 'MONGO_APP_DATABASE' } ]});
+db.createUser({user: 'jenkins', pwd: $MONGO_JENKINS_PASSWORD, roles: [ { role: ''readWrite', db: 'MONGO_APP_DATABASE' } ]});
 EOF
