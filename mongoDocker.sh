@@ -1,7 +1,5 @@
 #!/bin/bash
 
-docker network create mongo-cluster
-
 if [ -z "${MONGO_PORT-}" ]; then
   MONGO_PORT=27017
   export MONGO_PORT
@@ -32,7 +30,6 @@ curl https://raw.githubusercontent.com/Anas2001/devOps/main/mongoInit.sh -o dock
 docker run \
   -p $MONGO_IP:$MONGO_PORT:$MONGO_PORT \
   -v /var/lib/$MONGO_NAME:/data/db -v "$(pwd)/mongoInit.sh:/scripts/rs.sh" \
-  --net mongo-cluster \
   --name $MONGO_NAME \
   -d --restart=always mongo:$MONGO_VERSION \
   mongod --replSet rs0 --port $MONGO_PORT 
