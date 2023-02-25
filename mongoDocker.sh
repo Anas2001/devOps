@@ -25,7 +25,7 @@ if [ -z "${MONGO_NAME-}" ]; then
   export MONGO_NAME
 fi
 
-curl https://raw.githubusercontent.com/Anas2001/devOps/v0.0.1/mongoInit.sh -o docker.sh -o mongoInit.sh
+curl https://raw.githubusercontent.com/Anas2001/devOps/v0.0.1/mongoInit.sh -o mongoInit.sh
 
 docker run \
   -p $MONGO_IP:$MONGO_PORT:$MONGO_PORT \
