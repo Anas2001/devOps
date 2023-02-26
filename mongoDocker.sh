@@ -22,12 +22,14 @@ fi
 
 curl https://raw.githubusercontent.com/Anas2001/devOps/v0.0.1/mongoInit.sh -o mongoInit.sh
 
+docker network create mongo-cluster
+
 docker run \
-  -p "$MONGO_IP:$MONGO_PORT:$MONGO_PORT" \
-  -v "/var/lib/$MONGO_NAME":/data/db -v "$(pwd)/mongoInit.sh:/scripts/rs.sh" \
-  --network=host \
-  --name "$MONGO_NAME" \
+  -p $MONGO_IP:$MONGO_PORT:$MONGO_PORT \
+  -v /var/lib/$MONGO_NAME:/data/db -v "$(pwd)/mongoInit.sh:/scripts/rs.sh" \
+  --net mongo-cluster \
+  --name $MONGO_NAME \
   -d --restart=always mongo:$MONGO_VERSION \
-  mongod --replSet rs0 --port "$MONGO_PORT"
+  mongod --replSet rs0 --port $MONGO_PORT
   
   
