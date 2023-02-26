@@ -33,6 +33,6 @@ docker run \
   --network=host \
   --name $MONGO_NAME \
   -d --restart=always mongo:$MONGO_VERSION \
-  mongod --replSet rs0 --port $MONGO_PORT 
+  mongod --replSet rs0
   
   
