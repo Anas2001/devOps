@@ -15,11 +15,6 @@ if [ -z "${MONGO_IP-}" ]; then
   export MONGO_IP
 fi
 
-if [ -z "${MONGO_VERSION-}" ]; then
-  MONGO_VERSION=5.0.9
-  export MONGO_VERSION
-fi
-
 if [ -z "${MONGO_NAME-}" ]; then
   MONGO_NAME=mongodb1
   export MONGO_NAME
