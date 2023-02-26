@@ -23,11 +23,11 @@ fi
 curl https://raw.githubusercontent.com/Anas2001/devOps/v0.0.1/mongoInit.sh -o mongoInit.sh
 
 docker run \
-  -p $MONGO_IP:$MONGO_PORT:$MONGO_PORT \
-  -v /var/lib/$MONGO_NAME:/data/db -v "$(pwd)/mongoInit.sh:/scripts/rs.sh" \
+  -p "$MONGO_IP:$MONGO_PORT:$MONGO_PORT" \
+  -v "/var/lib/$MONGO_NAME":/data/db -v "$(pwd)/mongoInit.sh:/scripts/rs.sh" \
   --network=host \
-  --name $MONGO_NAME \
+  --name "$MONGO_NAME" \
   -d --restart=always mongo:$MONGO_VERSION \
-  mongod --replSet rs0 --port $MONGO_PORT
+  mongod --replSet rs0 --port "$MONGO_PORT"
   
   
